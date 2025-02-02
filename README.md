@@ -11,18 +11,23 @@ Ensure you have the following installed on your system:
 
 ## Running the Application
 1. Clone the repository:
-   git clone <repository-url>
-   cd <repository-folder>
+   
+   git clone https://github.com/CundullahT-CT/spartan-app-new-nonsecure.git
+
+   cd spartan-app-new-nonsecure
 
 2. Build and run the application using Maven:
+
    mvn spring-boot:run
 
 ### Running with JAR file
 1. Build the JAR file:
+
    mvn clean install
 
 2. Run the JAR file:
-   java -jar target/<your-application-name>.jar
+
+   java -jar target/spartan-app-new-nonsecure-0.0.1-SNAPSHOT.jar
 
 The application will run on http://localhost:8000
 

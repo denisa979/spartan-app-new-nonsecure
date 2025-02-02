@@ -1,0 +1,35 @@
+networks:
+  spartan-network:
+    driver: bridge
+
+volumes:
+  spartan-data:
+
+services:
+  spartan-db-container:
+    image: postgres
+    container_name: spartan-db-container
+    env_file:
+      - .env_db
+    networks:
+      - spartan-network
+    volumes:
+      - spartan-data:/var/lib/postgresql/data
+    ports:
+      - '5436:5432'
+    restart: always
+  spartan-app-container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cundullaht/spartan-app-new-nonsecure:latest
+    container_name: spartan-app-container
+    env_file:
+      - .env_app
+    networks:
+      - spartan-network
+    ports:
+      - '8000:8000'
+    depends_on:
+      spartan-db-container:
+        condition: service_started

@@ -1,6 +1,7 @@
 package com.spartan.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +18,9 @@ import java.util.stream.Stream;
 @EnableScheduling
 public class DatabaseResetScheduler {
 
+    @Value("${spring.application.name}")
+    private String applicationName;
+
     private final JdbcTemplate jdbcTemplate;
 
     public DatabaseResetScheduler(JdbcTemplate jdbcTemplate) {
@@ -26,11 +30,11 @@ public class DatabaseResetScheduler {
     @Scheduled(cron = "59 59 23 * * ?", zone = "America/New_York")
     public void resetDatabase() {
         try {
-            System.out.println("STARTING DATABASE RESET");
+            log.info("STARTING DATABASE RESET");
             deleteAllData();
-            System.out.println("LOADING THE DEFAULT DATA");
+            log.info("LOADING THE DEFAULT DATA");
             loadDataSql();
-            System.out.println("DATABASE RESET IS COMPLETED");
+            log.info("DATABASE RESET IS COMPLETED");
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -51,7 +55,8 @@ public class DatabaseResetScheduler {
     }
 
     private void loadDataSql() throws IOException {
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/data.sql"))) {
+        String userHome = System.getProperty("user.home");
+        try (Stream<String> lines = Files.lines(Paths.get(userHome + "/" + applicationName + "/data.sql"))) {
             String sql = lines.collect(Collectors.joining("\n"));
             jdbcTemplate.execute(sql);
         } catch (IOException e) {

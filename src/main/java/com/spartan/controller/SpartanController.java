@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/spartans")
+@RequestMapping("/api/v2/spartans")
 @Tag(name = "Spartan API", description = "CRUD Operations for Spartans")
 public class SpartanController {
 

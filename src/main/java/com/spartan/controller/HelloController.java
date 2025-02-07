@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/hello")
+@RequestMapping(value = "/api/v2/hello")
 @Tag(name = "Hello API", description = "Hello Controller")
 public class HelloController {
 

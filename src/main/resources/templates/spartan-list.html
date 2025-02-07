@@ -102,7 +102,7 @@
 <header>
 
     <nav class="navbar navbar-dark bg-primary fixed-top">
-        <a class="navbar-brand" th:href="@{/web/home}">Spartan List
+        <a class="navbar-brand" th:href="@{/web/v2/home}">Spartan List
             <i class="fa fa-unlock" aria-hidden="true"></i>
         </a>
     </nav>
@@ -115,10 +115,10 @@
         <div class="card-body">
 
             <p class="my-5">
-                <a id="add_spartan_btn" th:href="@{/web/spartans/add}" class="btn btn-primary btn-lg">
+                <a id="add_spartan_btn" th:href="@{/web/v2/spartans/add}" class="btn btn-primary btn-lg">
                     <i class="fas fa-user-plus"> Add Spartan</i>
                 </a>
-                <a id="back_to_home_btn" th:href="@{/web/home}" class="btn btn-default btn-lg">
+                <a id="back_to_home_btn" th:href="@{/web/v2/home}" class="btn btn-default btn-lg">
                     Back to Home
                 </a>
                 <a id="total" th:text="'Total: ' + ${#lists.size(spartans)}"
@@ -167,19 +167,19 @@
                             <td th:text="${spartan.phone}"></td>
                             <td><span th:text="${spartan.gender}"></span></td>
                             <td>
-                                <a th:id="'view_spartan_' + ${spartan.uuid}" th:href="@{/web/spartans/{id}(id=${spartan.uuid})}" class="btn btn-primary">
+                                <a th:id="'view_spartan_' + ${spartan.uuid}" th:href="@{/web/v2/spartans/{id}(id=${spartan.uuid})}" class="btn btn-primary">
                                     <i class="fas fa-user-shield"></i>
                                 </a>
                             </td>
                             <td>
                                 <a th:id="'edit_spartan_' + ${spartan.uuid}"
-                                   th:href="@{/web/spartans/edit/{id}(id=${spartan.uuid})}" class="btn btn-warning">
+                                   th:href="@{/web/v2/spartans/edit/{id}(id=${spartan.uuid})}" class="btn btn-warning">
                                     <i class="fas fa-user-edit ml-2 text-light"></i>
                                 </a>
                             </td>
                             <td>
                                 <a th:id="'delete_spartan_' + ${spartan.uuid}"
-                                   th:href="@{/web/spartans/delete/{id}(id=${spartan.uuid})}" class="btn btn-primary btn-danger">
+                                   th:href="@{/web/v2/spartans/delete/{id}(id=${spartan.uuid})}" class="btn btn-primary btn-danger">
                                     <i class="fas fa-user-times ml-2"></i>
                                 </a>
                             </td>

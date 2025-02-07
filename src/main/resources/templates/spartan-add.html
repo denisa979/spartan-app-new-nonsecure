@@ -14,7 +14,7 @@
 <body>
 <header>
     <nav class="navbar navbar-dark bg-primary fixed-top">
-        <a class="navbar-brand" th:href="@{/web/home}">Add Spartan Page
+        <a class="navbar-brand" th:href="@{/web/v2/home}">Add Spartan Page
             <i class="fa fa-unlock" aria-hidden="true"></i>
         </a>
     </nav>
@@ -25,7 +25,7 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form th:action="@{/web/spartans/add}" method="post" th:object="${spartan}">
+                <form th:action="@{/web/v2/spartans/add}" method="post" th:object="${spartan}">
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="name" class="col-form-label">Name:</label>
@@ -61,7 +61,7 @@
 
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-success">Save</button>
-                            <a class="btn btn-danger" th:href="@{/web/spartans}" role="button">Cancel</a>
+                            <a class="btn btn-danger" th:href="@{/web/v2/spartans}" role="button">Cancel</a>
                         </div>
 
                         <input type="hidden" id="id" th:field="*{uuid}">
@@ -72,8 +72,8 @@
         </div>
     </div>
     <div style="text-align: right">
-        [ <a th:href="@{/web/spartans}">Back to the List</a> ]
-        [ <a th:href="@{/web/home}">Back to Home</a> ]
+        [ <a th:href="@{/web/v2/spartans}">Back to the List</a> ]
+        [ <a th:href="@{/web/v2/home}">Back to Home</a> ]
     </div>
 </div>
 <footer>

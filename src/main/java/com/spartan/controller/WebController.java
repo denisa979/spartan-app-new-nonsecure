@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/web/spartans")
+@RequestMapping("/web/v2/spartans")
 public class WebController {
 
     private final SpartanService spartanService;
@@ -38,7 +38,7 @@ public class WebController {
         }
 
         spartanService.createSpartan(spartanDTO);
-        return "redirect:/web/spartans";
+        return "redirect:/web/v2/spartans";
     }
 
     @GetMapping
@@ -76,13 +76,13 @@ public class WebController {
         }
 
         spartanService.updateSpartan(spartanDTO, uuid);
-        return "redirect:/web/spartans";
+        return "redirect:/web/v2/spartans";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteSpartan(@PathVariable("id") UUID uuid) {
         spartanService.deleteSpartanByUuid(uuid);
-        return "redirect:/web/spartans";
+        return "redirect:/web/v2/spartans";
     }
 
 }

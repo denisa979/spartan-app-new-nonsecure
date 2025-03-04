@@ -1,35 +1,51 @@
-networks:
-  spartan-network:
-    driver: bridge
-
-volumes:
-  spartan-data:
-
+version: "3.9"
 services:
-  spartan-db-container:
-    image: postgres
-    container_name: spartan-db-container
-    env_file:
-      - .env_db
-    networks:
-      - spartan-network
-    volumes:
-      - spartan-data:/var/lib/postgresql/data
+  hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    shm_size: 256mb
     ports:
-      - '5436:5432'
-    restart: always
-  spartan-app-container:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: cundullaht/spartan-app-new-nonsecure:latest
-    container_name: spartan-app-container
-    env_file:
-      - .env_app
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
     networks:
-      - spartan-network
-    ports:
-      - '8000:8000'
+      - selenium-grid
+    environment:
+      - GRID_TIMEOUT=300000
+      - GRID_BROWSER_TIMEOUT=300000
+    restart: unless-stopped
+
+  chrome_1:
+    image: selenium/node-chrome:latest
+    shm_size: 256mb
     depends_on:
-      spartan-db-container:
-        condition: service_started
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=2
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - VNC_NO_PASSWORD=1
+    networks:
+      - selenium-grid
+    restart: unless-stopped
+
+
+  chrome_video:
+    image: selenium/video:ffmpeg-4.3.1-20221219
+    container_name: chrome-video
+    volumes:
+      - /tmp/videos:/videos
+    depends_on:
+      - chrome_1
+    environment:
+      - DISPLAY_CONTAINER_NAME=selenium-chrome-1
+      - FILE_NAME=chrome_video.mp4
+    networks:
+      - selenium-grid
+    restart: unless-stopped
+
+networks:
+  selenium-grid:
+    driver: bridge
